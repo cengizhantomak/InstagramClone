@@ -13,7 +13,6 @@ class ViewController: UIViewController {
         
         let btn = UIButton(type: .system)
         btn.setImage(UIImage(named: "Fotograf_Sec")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        btn.translatesAutoresizingMaskIntoConstraints = false
         
         return btn
     }()
@@ -23,7 +22,6 @@ class ViewController: UIViewController {
         let txt = UITextField()
         txt.backgroundColor = UIColor(white: 0, alpha: 0.05)
         txt.placeholder = "Email adresinizi giriniz..."
-        txt.translatesAutoresizingMaskIntoConstraints = false
         txt.borderStyle = .roundedRect
         txt.font = UIFont.systemFont(ofSize: 16)
         
@@ -35,7 +33,6 @@ class ViewController: UIViewController {
         let txt = UITextField()
         txt.backgroundColor = UIColor(white: 0, alpha: 0.05)
         txt.placeholder = "Kullanıcı Adınız..."
-        txt.translatesAutoresizingMaskIntoConstraints = false
         txt.borderStyle = .roundedRect
         txt.font = UIFont.systemFont(ofSize: 16)
         
@@ -48,7 +45,6 @@ class ViewController: UIViewController {
         txt.backgroundColor = UIColor(white: 0, alpha: 0.05)
         txt.placeholder = "Parolanız..."
         txt.isSecureTextEntry = true
-        txt.translatesAutoresizingMaskIntoConstraints = false
         txt.borderStyle = .roundedRect
         txt.font = UIFont.systemFont(ofSize: 16)
         
@@ -59,7 +55,7 @@ class ViewController: UIViewController {
        
         let btn = UIButton(type: .system)
         btn.setTitle("Kayıt Ol", for: .normal)
-        btn.backgroundColor = UIColor(red: 150/255, green: 205/255, blue: 245/255, alpha: 1)
+        btn.backgroundColor = UIColor.rgbDonustur(red: 150, green: 205, blue: 245)
         btn.layer.cornerRadius = 6
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         btn.setTitleColor(.white, for: .normal)
@@ -72,10 +68,18 @@ class ViewController: UIViewController {
         
         view.addSubview(btnFotografEkle)
         
-        btnFotografEkle.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        btnFotografEkle.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        btnFotografEkle.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                               bottom: nil,
+                               leading: nil,
+                               trailing: nil,
+                               paddingTop: 40,
+                               paddingBottom: 0,
+                               paddingLeft: 0,
+                               paddingRight: 0,
+                               width: 150,
+                               height: 150)
+        
         btnFotografEkle.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        btnFotografEkle.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
         
         girisAlanlariniOlustur()
     }
@@ -83,18 +87,62 @@ class ViewController: UIViewController {
     fileprivate func girisAlanlariniOlustur() {
         
         let stackView = UIStackView(arrangedSubviews: [txtEmail, txtKullaniciAdi, txtParola, btnKayitOl])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillEqually
         stackView.axis = .vertical
         stackView.spacing = 10
         view.addSubview(stackView)
         
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: btnFotografEkle.bottomAnchor, constant: 20),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 45),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -45),
-            stackView.heightAnchor.constraint(equalToConstant: 230)
-        ])
+        stackView.anchor(top: btnFotografEkle.bottomAnchor,
+                         bottom: nil,
+                         leading: view.leadingAnchor,
+                         trailing: view.trailingAnchor,
+                         paddingTop: 20,
+                         paddingBottom: 0,
+                         paddingLeft: 45,
+                         paddingRight: -45,
+                         width: 0,
+                         height: 230)
+    }
+}
+
+extension UIView {
+    
+    func anchor(top: NSLayoutYAxisAnchor?,
+                bottom: NSLayoutYAxisAnchor?,
+                leading: NSLayoutXAxisAnchor?,
+                trailing: NSLayoutXAxisAnchor?,
+                paddingTop: CGFloat,
+                paddingBottom: CGFloat,
+                paddingLeft: CGFloat,
+                paddingRight: CGFloat,
+                width: CGFloat,
+                height: CGFloat) {
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        if let top = top {
+            self.topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
+        }
+        
+        if let bottom = bottom {
+            self.bottomAnchor.constraint(equalTo: bottom, constant: paddingBottom).isActive = true
+        }
+        
+        if let leading = leading {
+            self.leadingAnchor.constraint(equalTo: leading, constant: paddingLeft).isActive = true
+        }
+        
+        if let trailing = trailing {
+            self.trailingAnchor.constraint(equalTo: trailing, constant: paddingRight).isActive = true
+        }
+        
+        if width != 0 {
+            widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
+        
+        if height != 0 {
+            heightAnchor.constraint(equalToConstant: height).isActive = true
+        }
     }
 }
 

@@ -13,6 +13,7 @@
 		47CE04902A16696900C15DCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CE048E2A16696900C15DCD /* Main.storyboard */; };
 		47CE04922A16696A00C15DCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47CE04912A16696A00C15DCD /* Assets.xcassets */; };
 		47CE04952A16696A00C15DCD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CE04932A16696A00C15DCD /* LaunchScreen.storyboard */; };
+		47CE04A12A16727400C15DCD /* Uzanti+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE04A02A16727400C15DCD /* Uzanti+UIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		47CE04912A16696A00C15DCD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47CE04942A16696A00C15DCD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47CE04962A16696A00C15DCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		47CE04A02A16727400C15DCD /* Uzanti+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Uzanti+UIColor.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		47CE04872A16696900C15DCD /* InstagramClone */ = {
 			isa = PBXGroup;
 			children = (
+				47CE049F2A16724F00C15DCD /* FaydaliDosyalar */,
 				47CE04882A16696900C15DCD /* AppDelegate.swift */,
 				47CE048A2A16696900C15DCD /* SceneDelegate.swift */,
 				47CE048C2A16696900C15DCD /* ViewController.swift */,
@@ -65,6 +68,14 @@
 				47CE04962A16696A00C15DCD /* Info.plist */,
 			);
 			path = InstagramClone;
+			sourceTree = "<group>";
+		};
+		47CE049F2A16724F00C15DCD /* FaydaliDosyalar */ = {
+			isa = PBXGroup;
+			children = (
+				47CE04A02A16727400C15DCD /* Uzanti+UIColor.swift */,
+			);
+			path = FaydaliDosyalar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +151,7 @@
 			files = (
 				47CE048D2A16696900C15DCD /* ViewController.swift in Sources */,
 				47CE04892A16696900C15DCD /* AppDelegate.swift in Sources */,
+				47CE04A12A16727400C15DCD /* Uzanti+UIColor.swift in Sources */,
 				47CE048B2A16696900C15DCD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
