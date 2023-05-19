@@ -7,6 +7,9 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
+import FirebaseStorage
+import FirebaseFirestore
 
 class ViewController: UIViewController {
     
@@ -15,8 +18,16 @@ class ViewController: UIViewController {
         let btn = UIButton(type: .system)
         btn.setImage(UIImage(named: "Fotograf_Sec")?.withRenderingMode(.alwaysOriginal), for: .normal)
         
+        btn.addTarget(self, action: #selector(btnFotografEklePressed), for: .touchUpInside)
+        
         return btn
     }()
+    
+    @objc fileprivate func btnFotografEklePressed() {
+        let imgPickerController = UIImagePickerController()
+        imgPickerController.delegate = self
+        present(imgPickerController, animated: true, completion: nil)
+    }
     
     let txtEmail: UITextField = {
         
@@ -93,15 +104,59 @@ class ViewController: UIViewController {
         guard let kullaniciAdi = txtKullaniciAdi.text else { return }
         guard let parola = txtParola.text else { return }
         
+        let hud = JGProgressHUD(style: .light)
+        hud.textLabel.text = "Kaydınız Gerçekleşiyor"
+        hud.show(in: self.view)
+        
         Auth.auth().createUser(withEmail: emailAdresi, password: parola) { sonuc, hata in
             if let hata = hata {
                 print("Kullanıcı kayıt olurken hata meydana geldi: ", hata)
+                hud.dismiss(animated: true)
                 return
             }
+            
+            guard let kaydolanKullaniciID = sonuc?.user.uid else { return }
+            
+            let goruntuAdi = UUID().uuidString
+            let ref = Storage.storage().reference(withPath: "/ProfilFotograflari/\(goruntuAdi)")
+            let goruntuData = self.btnFotografEkle.imageView?.image?.jpegData(compressionQuality: 0.8)
+            
+            ref.putData(goruntuData!, metadata: nil) { _, hata in
+                if let hata = hata {
+                    print("Fotoğraf Kaydedilemedi: ", hata)
+                    return
+                }
+                print("Görüntü başarıyla Upload Edildi")
+                
+                ref.downloadURL { url, hata in
+                    if let hata = hata {
+                        print("Görüntünün URL Adresi Alınamadı: ", hata)
+                        return
+                    }
+                    print("Upload edilen görüntünün URL Adresi: \(url?.absoluteString ?? "Link Yok")")
+                    
+                    let eklenecekVeri = ["KullaniciAdi " : kullaniciAdi,
+                                         "KullaniciID " : kaydolanKullaniciID,
+                                         "ProfilGoruntuURL " : url?.absoluteString ?? ""]
+                    
+                    Firestore.firestore().collection("Kullanicilar").document(kaydolanKullaniciID).setData(eklenecekVeri) { hata in
+                        if let hata = hata {
+                            print("Kullanıcı verileri firestore'a kaydedilemedi: ",hata)
+                            return
+                        }
+                        print("Kullanıcı verileri başarıyla kaydedildi")
+                        
+                        hud.dismiss(animated: true)
+                        self.btnFotografEkle.setImage(UIImage(named: "Fotograf_Sec"), for: .normal)
+                        self.btnFotografEkle.layer.borderColor = UIColor.clear.cgColor
+                        self.btnFotografEkle.layer.borderWidth = 0
+                        self.txtEmail.text = ""
+                        self.txtKullaniciAdi.text = ""
+                        self.txtParola.text = ""
+                    }
+                }
+            }
             print("Kullanıcı kaydı başarıyla gerçekleşti: ", sonuc?.user.uid)
-            self.txtEmail.text = ""
-            self.txtKullaniciAdi.text = ""
-            self.txtParola.text = ""
         }
     }
 
@@ -185,6 +240,23 @@ extension UIView {
         if height != 0 {
             heightAnchor.constraint(equalToConstant: height).isActive = true
         }
+    }
+}
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let imgSecilen = info[.originalImage] as? UIImage
+        self.btnFotografEkle.setImage(imgSecilen?.withRenderingMode(.alwaysOriginal), for: .normal)
+        btnFotografEkle.layer.cornerRadius = btnFotografEkle.frame.width / 2
+        btnFotografEkle.layer.masksToBounds = true
+        btnFotografEkle.layer.borderColor = UIColor.darkGray.cgColor
+        btnFotografEkle.layer.borderWidth = 3
+        dismiss(animated: true, completion: nil)
     }
 }
 
