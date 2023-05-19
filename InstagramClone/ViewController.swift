@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ViewController: UIViewController {
     
@@ -25,8 +26,24 @@ class ViewController: UIViewController {
         txt.borderStyle = .roundedRect
         txt.font = UIFont.systemFont(ofSize: 16)
         
+        txt.addTarget(self, action: #selector(veriDegisimi), for: .editingChanged)
+        
         return txt
     }()
+    
+    @objc fileprivate func veriDegisimi() {
+        let formGecerlimi = (txtEmail.text?.count ?? 0) > 0 &&
+        (txtKullaniciAdi.text?.count ?? 0) > 0 &&
+        (txtParola.text?.count ?? 0) > 0
+        
+        if formGecerlimi {
+            btnKayitOl.backgroundColor = UIColor.rgbDonustur(red: 20, green: 155, blue: 235)
+            btnKayitOl.isEnabled = true
+        } else {
+            btnKayitOl.backgroundColor = UIColor.rgbDonustur(red: 150, green: 205, blue: 245)
+            btnKayitOl.isEnabled = false
+        }
+    }
     
     let txtKullaniciAdi: UITextField = {
         
@@ -35,6 +52,8 @@ class ViewController: UIViewController {
         txt.placeholder = "Kullanıcı Adınız..."
         txt.borderStyle = .roundedRect
         txt.font = UIFont.systemFont(ofSize: 16)
+        
+        txt.addTarget(self, action: #selector(veriDegisimi), for: .editingChanged)
         
         return txt
     }()
@@ -48,6 +67,8 @@ class ViewController: UIViewController {
         txt.borderStyle = .roundedRect
         txt.font = UIFont.systemFont(ofSize: 16)
         
+        txt.addTarget(self, action: #selector(veriDegisimi), for: .editingChanged)
+        
         return txt
     }()
     
@@ -60,8 +81,29 @@ class ViewController: UIViewController {
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         btn.setTitleColor(.white, for: .normal)
         
+        btn.addTarget(self, action: #selector(btnKayitOlPressed), for: .touchUpInside)
+        btn.isEnabled = false
+        
         return btn
     }()
+    
+    @objc fileprivate func btnKayitOlPressed() {
+        
+        guard let emailAdresi = txtEmail.text else { return }
+        guard let kullaniciAdi = txtKullaniciAdi.text else { return }
+        guard let parola = txtParola.text else { return }
+        
+        Auth.auth().createUser(withEmail: emailAdresi, password: parola) { sonuc, hata in
+            if let hata = hata {
+                print("Kullanıcı kayıt olurken hata meydana geldi: ", hata)
+                return
+            }
+            print("Kullanıcı kaydı başarıyla gerçekleşti: ", sonuc?.user.uid)
+            self.txtEmail.text = ""
+            self.txtKullaniciAdi.text = ""
+            self.txtParola.text = ""
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
