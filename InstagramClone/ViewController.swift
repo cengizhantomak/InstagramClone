@@ -135,9 +135,9 @@ class ViewController: UIViewController {
                     }
                     print("Upload edilen görüntünün URL Adresi: \(url?.absoluteString ?? "Link Yok")")
                     
-                    let eklenecekVeri = ["KullaniciAdi " : kullaniciAdi,
-                                         "KullaniciID " : kaydolanKullaniciID,
-                                         "ProfilGoruntuURL " : url?.absoluteString ?? ""]
+                    let eklenecekVeri = ["KullaniciAdi" : kullaniciAdi,
+                                         "KullaniciID" : kaydolanKullaniciID,
+                                         "ProfilGoruntuURL" : url?.absoluteString ?? ""]
                     
                     Firestore.firestore().collection("Kullanicilar").document(kaydolanKullaniciID).setData(eklenecekVeri) { hata in
                         if let hata = hata {
@@ -147,17 +147,25 @@ class ViewController: UIViewController {
                         print("Kullanıcı verileri başarıyla kaydedildi")
                         
                         hud.dismiss(animated: true)
-                        self.btnFotografEkle.setImage(UIImage(named: "Fotograf_Sec"), for: .normal)
-                        self.btnFotografEkle.layer.borderColor = UIColor.clear.cgColor
-                        self.btnFotografEkle.layer.borderWidth = 0
-                        self.txtEmail.text = ""
-                        self.txtKullaniciAdi.text = ""
-                        self.txtParola.text = ""
+                        self.gorunumuDuzelt()
                     }
                 }
             }
             print("Kullanıcı kaydı başarıyla gerçekleşti: ", sonuc?.user.uid)
         }
+    }
+    
+    fileprivate func gorunumuDuzelt() {
+        self.btnFotografEkle.setImage(UIImage(named: "Fotograf_Sec"), for: .normal)
+        self.btnFotografEkle.layer.borderColor = UIColor.clear.cgColor
+        self.btnFotografEkle.layer.borderWidth = 0
+        self.txtEmail.text = ""
+        self.txtKullaniciAdi.text = ""
+        self.txtParola.text = ""
+        let basariliHud = JGProgressHUD(style: .light)
+        basariliHud.textLabel.text = "Kayıt İşlemi Başarılı..."
+        basariliHud.show(in: self.view)
+        basariliHud.dismiss(afterDelay: 2)
     }
 
     override func viewDidLoad() {

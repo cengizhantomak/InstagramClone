@@ -15,6 +15,8 @@
 		47CE04952A16696A00C15DCD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CE04932A16696A00C15DCD /* LaunchScreen.storyboard */; };
 		47CE04A12A16727400C15DCD /* Uzanti+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE04A02A16727400C15DCD /* Uzanti+UIColor.swift */; };
 		47CE04A32A16B8BB00C15DCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 47CE04A22A16B8BA00C15DCD /* GoogleService-Info.plist */; };
+		47CE04A52A17BEA400C15DCD /* AnaTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE04A42A17BEA400C15DCD /* AnaTabBarController.swift */; };
+		47CE04A72A17C09F00C15DCD /* KullaniciProfilController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE04A62A17C09F00C15DCD /* KullaniciProfilController.swift */; };
 		C2932C6CA8B0AC0604E054A9 /* Pods_InstagramClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8BE0F0D2C9575E081F4C48 /* Pods_InstagramClone.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +31,8 @@
 		47CE04962A16696A00C15DCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47CE04A02A16727400C15DCD /* Uzanti+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Uzanti+UIColor.swift"; sourceTree = "<group>"; };
 		47CE04A22A16B8BA00C15DCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		47CE04A42A17BEA400C15DCD /* AnaTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnaTabBarController.swift; sourceTree = "<group>"; };
+		47CE04A62A17C09F00C15DCD /* KullaniciProfilController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KullaniciProfilController.swift; sourceTree = "<group>"; };
 		8F838843866C472FD0485CBE /* Pods-InstagramClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.debug.xcconfig"; path = "Target Support Files/Pods-InstagramClone/Pods-InstagramClone.debug.xcconfig"; sourceTree = "<group>"; };
 		AC265F2C8C4C9DD114519B01 /* Pods-InstagramClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramClone.release.xcconfig"; path = "Target Support Files/Pods-InstagramClone/Pods-InstagramClone.release.xcconfig"; sourceTree = "<group>"; };
 		EB8BE0F0D2C9575E081F4C48 /* Pods_InstagramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,7 +56,6 @@
 				8F838843866C472FD0485CBE /* Pods-InstagramClone.debug.xcconfig */,
 				AC265F2C8C4C9DD114519B01 /* Pods-InstagramClone.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -78,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				47CE049F2A16724F00C15DCD /* FaydaliDosyalar */,
+				47CE04A42A17BEA400C15DCD /* AnaTabBarController.swift */,
 				47CE04882A16696900C15DCD /* AppDelegate.swift */,
 				47CE048A2A16696900C15DCD /* SceneDelegate.swift */,
 				47CE048C2A16696900C15DCD /* ViewController.swift */,
@@ -86,6 +90,7 @@
 				47CE04932A16696A00C15DCD /* LaunchScreen.storyboard */,
 				47CE04962A16696A00C15DCD /* Info.plist */,
 				47CE04A22A16B8BA00C15DCD /* GoogleService-Info.plist */,
+				47CE04A62A17C09F00C15DCD /* KullaniciProfilController.swift */,
 			);
 			path = InstagramClone;
 			sourceTree = "<group>";
@@ -223,6 +228,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				47CE048D2A16696900C15DCD /* ViewController.swift in Sources */,
+				47CE04A52A17BEA400C15DCD /* AnaTabBarController.swift in Sources */,
+				47CE04A72A17C09F00C15DCD /* KullaniciProfilController.swift in Sources */,
 				47CE04892A16696900C15DCD /* AppDelegate.swift in Sources */,
 				47CE04A12A16727400C15DCD /* Uzanti+UIColor.swift in Sources */,
 				47CE048B2A16696900C15DCD /* SceneDelegate.swift in Sources */,
